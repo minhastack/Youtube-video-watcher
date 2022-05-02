@@ -1,0 +1,19 @@
+{
+  "name": "watcher",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "theJoseNeto <joseneto180201@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js", 
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "puppeteer": "^13.7.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.16"
+  }
+}
