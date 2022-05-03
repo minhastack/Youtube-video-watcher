@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 
-module.exports = class {
+module.exports = class Watcher {
+
     constructor() {
         this.browser = null;
         this.page = null;
@@ -11,6 +12,7 @@ module.exports = class {
         this.browser = await puppeteer.launch({
             headless: true
         });
+
         this.page = await this.browser.newPage();
 
     }
@@ -20,37 +22,33 @@ module.exports = class {
         await this.page.goto(url);
     }
 
-    getLastVideo = async () => {
-
+    getLastVideo = async youtubeChannelUrl => {
+        await this.createPage(youtubeChannelUrl)
         await this.page.waitForTimeout(3000);
 
         const lastVideo = await this.page.evaluate(() => {
 
                 const videoTitle = document.querySelector('#video-title').innerHTML;
                 const videoLink = document.querySelector('#video-title').href;
-              
+
                 return {
                     videoTitle,
                     videoLink
                 };
             })
-            .then(video => this.watched[0] = video);
-
+            .then(video => this.watched[0] = video.videoLink);
+        console.log(this.watched);
         return lastVideo;
 
     }
 
-    checkVideo = async () => {
+    checkVideo = async (youtubeChannelUrl) => {
 
-        await this.getLastVideo().then(res => {
-            console.log(res.videoTitle);
-            console.log(res.videoLink);
-
-            if (res.videoTitle === this.watched[0]) return;
-
-
-        });
-
-
+        const lastVideo = await this.getLastVideo(youtubeChannelUrl)
+        if (lastVideo.videoTitle === this.watched[0]) return;
+        else return {
+            videoTitle: lastVideo.videoTitle,
+            videoLink: lastVideo.videoLink
+        }
     }
 }

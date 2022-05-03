@@ -1,20 +1,10 @@
-require('dotenv').config() ? console.log("development") : console.log('production');
+require('dotenv').config() ? console.log("In development...") : console.log('production');
+
 const { Client, Intents } = require('discord.js');
-const client = new Client({intents: [Intents.FLAGS.DIRECT_MESSAGES]});
-
-const Watcher = require('./src/modules/watcher');
-
 const app = require('./src/app');
-const watcher = new Watcher();
+const client = new Client({intents: [Intents.FLAGS.GUILD_MESSAGES,Intents.FLAGS.GUILDS]});
+const tokenAccess = process.env.DISCORD_TOKEN_ACCESS;
+const channelIdYoutube = process.env.TEST_CHANNEL;
 
-const teste = async ()=>{
-    await watcher.createPage('https://www.youtube.com/channel/UCcHWdlaVbzVP083WlPnHiWA/videos');
-    await watcher.checkVideo().then(()=> {
-        watcher.watched.pop() // TODO: Remover essa linha, ela só está controlando pra que o bot n fique preso; 
-        watcher.browser.close()})
-}
- teste();
-// const token = process.env.TOKEN;
-// client.login(token).then(()=>{
-    
-// });
+client.login(tokenAccess)
+    .then(async () => app(client, channelIdYoutube));
