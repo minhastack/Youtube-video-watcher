@@ -10,6 +10,7 @@ const Time = require('./src/utils/getTime');
 const client = new Client({
     intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS]
 });
+
 const tokenAccess = process.env.DISCORD_TOKEN_ACCESS;
 const channelIdYoutube = process.env.TEST_CHANNEL;
 
@@ -21,7 +22,7 @@ setInterval(() => {
             app(client, channelIdYoutube)
             let time = new Time().getTime();
 
-            console.log(time);
+            // console.log(time);
         });
 
-}, 604800000); // 604800000 = 7 days in miliseconds;
+}, 2000); // 604800000 = 7 days in miliseconds
