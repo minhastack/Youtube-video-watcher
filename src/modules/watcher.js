@@ -37,7 +37,7 @@ module.exports = class Watcher {
                 };
             })
             .then(video => this.watched[0] = video.videoLink);
-        console.log(this.watched);
+
         return lastVideo;
 
     }
@@ -46,9 +46,17 @@ module.exports = class Watcher {
 
         const lastVideo = await this.getLastVideo(youtubeChannelUrl)
         if (lastVideo.videoTitle === this.watched[0]) return;
+
         else return {
             videoTitle: lastVideo.videoTitle,
             videoLink: lastVideo.videoLink
         }
+
     }
+
+  
+
+
+
 }
+
