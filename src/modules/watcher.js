@@ -9,12 +9,8 @@ module.exports = class Watcher {
     }
 
     runBrowser = async () => {
-        this.browser = await puppeteer.launch({
-            headless: true
-        });
-
+        this.browser = await puppeteer.launch({headless: false});
         this.page = await this.browser.newPage();
-
     }
 
     createPage = async url => {
@@ -31,40 +27,26 @@ module.exports = class Watcher {
                 const videoTitle = document.querySelector('#video-title').innerHTML;
                 const videoLink = document.querySelector('#video-title').href;
 
-                return {
-                    videoTitle,
-                    videoLink
-                };
+                return {videoTitle, videoLink};
+            
             })
             .then(video => this.watched[0] = {title: video.videoTitle, link: video.videoLink});
             
-        console.log(this.watched);
-
         return lastVideo;
 
     }
 
     checkVideo = async (youtubeChannelUrl) => {
 
-        const video = {
-            videoTitle: '', 
-            videoLink: ''
-        }
-
+        const video = {videoTitle: '', videoLink: ''};
+        
         const lastVideo = await this.getLastVideo(youtubeChannelUrl)
         if (lastVideo.videoTitle === this.watched[0]) return video;
-
-        else{
+        else {
             video.videoTitle = lastVideo.title;
             video.videoLink = lastVideo.link;
+            
             return video;
         }
-
     }
-
-  
-
-
-
 }
-

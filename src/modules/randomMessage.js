@@ -9,20 +9,18 @@ module.exports =  class RandomMessage{
             "Vocês sabem que eu não gosto de falar da vida dos outros, né?! Mas vocês ficaram sabendo que esse tal de Neto está postando vídeo de novo?! Olhem pra isso:", 
             "Deus que me perdoe, mas a verdade precisa ser dita, Esse Neto está perdendo o controle! Outro vídeo postado... Olhem isso:"
         ]; 
-
     }
 
     getRandomMessage = () => {
-        const AllMessages = this.getMessages();
         let result;
         
+        const AllMessages = this.getMessages();
         const max = AllMessages.length;
         
         let index = this.randomNumber(max);
         let message = AllMessages[index];
-    
+        
         message == undefined ? result = message[AllMessages.length] : result = message;
-    
         return result;
     }
 }
