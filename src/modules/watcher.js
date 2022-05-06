@@ -35,7 +35,6 @@ module.exports = class Watcher {
         return lastVideo;
 
     }
-
     checkVideo = async (youtubeChannelUrl) => {
 
         const video = {videoTitle: '', videoLink: ''};
