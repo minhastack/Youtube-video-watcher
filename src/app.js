@@ -6,7 +6,8 @@ const Time = require('./utils/getTime');
 const app = async (client, channel_id) => {
 
     client.on("ready", async () => {
-        console.log("Client is ready!");
+        
+        console.log("### Client is ready! ###");
 
         const randomPhraseBot = new RandomMessage().getRandomMessage();
 
@@ -16,7 +17,7 @@ const app = async (client, channel_id) => {
                 const channel = await client.channels.cache.get(channel_id);
                 const admChannel = await client.channels.cache.get(process.env.ADM_CHANNEL)
                 if (response.videoLink != undefined && response.videoTitle != undefined) {
-                    await channel.send(`:shushing_face: @everyone, ${randomPhraseBot}\n"${response.videoTitle}"\nSe tiver achando que a fofoca é mentira, pode clicar em:${response.videoLink} e ver com seus próprios olhos! `);
+                    await channel.send(`:shushing_face: @e veryone, ${randomPhraseBot}\n"${response.videoTitle}"\nSe tiver achando que a fofoca é mentira, pode clicar em:${response.videoLink} e ver com seus próprios olhos! `);
                 }
 
             }).then(() => {
@@ -25,7 +26,7 @@ const app = async (client, channel_id) => {
                 const time = new Time().getTime();
                 console.log(`Bot "fofoqueiro" (Youtube Watcher) tabalhou em: ${time}`);
 
-            }).catch(e => console.error(e, ': response error'));
+            }).catch(e => console.error(e, ': ### response error'));
     })
 }
 
