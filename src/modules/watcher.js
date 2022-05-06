@@ -9,7 +9,7 @@ module.exports = class Watcher {
     }
 
     runBrowser = async () => {
-        this.browser = await puppeteer.launch({headless: false});
+        this.browser = await puppeteer.launch({headless: true}); // Em produção usar modo headless 
         this.page = await this.browser.newPage();
     }
 
