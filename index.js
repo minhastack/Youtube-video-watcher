@@ -1,17 +1,25 @@
-require('dotenv').config() ? console.log("In development...") : console.log('production');
-const {resolve} = require('path');
+const dotenv = require("dotenv").config();
+const enviromentChecker = require('./src/utils/enviromentChecker');
+const inProduction = enviromentChecker(dotenv);
 
 const {Client,Intents} = require('discord.js');
-const app = require(resolve('src', 'app'));
 const client = new Client({intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS]});
-
+const app = require(resolve('src', 'app'));
 const tokenAccess = process.env.DISCORD_TOKEN_ACCESS;
 
-const channelIdYoutube = process.env.TEST_CHANNEL; 
-// const channelIdYoutube = process.env.VIDEO_PROMOTION_CHANNEL;
+const {resolve} = require('path');
 
-setInterval(() => {
-    
-    client.login(tokenAccess).then(() => app(client, channelIdYoutube));
+if(inProduction){
+    setInterval(() => {client.login(tokenAccess)
+        .then(() => app(client, process.env.VIDEO_PROMOTION_CHANNEL));}, 3600000); // 3600000 = 1 hour in miliseconds
+}else{
+    // DEVELOPMENT
+    setInterval(() => {client.login(tokenAccess)
+        .then(() => app(client, process.env.TEST_CHANNEL));}, 2000); 
+}
 
-}, 2000); // 3600000 = 1 hour in miliseconds
+
+
+
+
+
